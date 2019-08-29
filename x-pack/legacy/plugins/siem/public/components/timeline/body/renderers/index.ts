@@ -18,8 +18,8 @@ import { systemRowRenderers } from './system/generic_row_renderer';
 
 export const rowRenderers: RowRenderer[] = [
   ...auditdRowRenderers,
-  netflowRowRenderer,
   suricataRowRenderer,
+  netflowRowRenderer,
   ...systemRowRenderers,
   zeekRowRenderer,
   plainRowRenderer, // falls-back to the plain row renderer
