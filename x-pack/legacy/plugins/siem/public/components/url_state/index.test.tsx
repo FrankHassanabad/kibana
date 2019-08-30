@@ -11,6 +11,7 @@ import { Router } from 'react-router-dom';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { StaticIndexPattern } from 'ui/index_patterns';
 
+import '../../mock/ui_settings';
 import {
   apolloClientObservable,
   globalNode,

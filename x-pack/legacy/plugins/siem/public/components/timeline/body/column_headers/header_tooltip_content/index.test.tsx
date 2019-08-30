@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 import { cloneDeep } from 'lodash/fp';
 import * as React from 'react';
 
+import '../../../../../mock/ui_settings';
 import { defaultHeaders } from '../../../../../mock';
 import { ColumnHeader } from '../column_header';
 

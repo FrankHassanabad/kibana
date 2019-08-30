@@ -12,6 +12,7 @@ import { MockedProvider } from 'react-apollo/test-utils';
 import { ThemeProvider } from 'styled-components';
 
 import { wait } from '../../../lib/helpers';
+import '../../../mock/ui_settings';
 import { TestProviderWithoutDragAndDrop } from '../../../mock/test_providers';
 import { mockOpenTimelineQueryResults } from '../../../mock/timeline_results';
 import * as i18n from '../translations';

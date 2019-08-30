@@ -11,6 +11,7 @@ import * as React from 'react';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { Provider as ReduxStoreProvider } from 'react-redux';
 
+import '../../../../mock/ui_settings';
 import { FlowTarget } from '../../../../graphql/types';
 import {
   apolloClientObservable,

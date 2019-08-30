@@ -9,6 +9,7 @@ import { mount } from 'enzyme';
 import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 
+import '../../mock/ui_settings';
 import {
   TestProviderWithoutDragAndDrop,
   mockGlobalState,

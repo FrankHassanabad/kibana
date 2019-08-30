@@ -6,6 +6,7 @@
 
 import React from 'react';
 import toJson from 'enzyme-to-json';
+import '../../../mock/ui_settings';
 import { mockAnomalies } from '../mock';
 import { cloneDeep } from 'lodash/fp';
 import { shallow } from 'enzyme';

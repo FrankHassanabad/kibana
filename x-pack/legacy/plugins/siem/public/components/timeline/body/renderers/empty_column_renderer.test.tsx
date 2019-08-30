@@ -9,6 +9,8 @@ import toJson from 'enzyme-to-json';
 import { cloneDeep } from 'lodash/fp';
 import React from 'react';
 
+import '../../../../mock/ui_settings';
+
 import { TimelineNonEcsData } from '../../../../graphql/types';
 import { defaultHeaders, mockTimelineData, TestProviders } from '../../../../mock';
 import { getEmptyValue } from '../../../empty_value';

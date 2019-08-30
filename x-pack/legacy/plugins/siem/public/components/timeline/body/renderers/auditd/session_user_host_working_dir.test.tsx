@@ -10,6 +10,7 @@ import toJson from 'enzyme-to-json';
 import * as React from 'react';
 import { mountWithIntl } from 'test_utils/enzyme_helpers';
 
+import '../../../../../mock/ui_settings';
 import { TestProviders } from '../../../../../mock';
 import { SessionUserHostWorkingDir } from './session_user_host_working_dir';
 

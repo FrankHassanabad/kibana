@@ -4,6 +4,7 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
+import '../../mock/ui_settings';
 import {
   DEFAULT_ICON,
   EXTERNAL,

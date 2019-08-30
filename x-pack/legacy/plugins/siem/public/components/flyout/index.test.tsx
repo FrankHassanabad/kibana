@@ -10,6 +10,7 @@ import { set } from 'lodash/fp';
 import * as React from 'react';
 import { ActionCreator } from 'typescript-fsa';
 
+import '../../mock/ui_settings';
 import { apolloClientObservable, mockGlobalState, TestProviders } from '../../mock';
 import { createStore, State } from '../../store';
 import { mockDataProviders } from '../timeline/data_providers/mock/mock_data_providers';

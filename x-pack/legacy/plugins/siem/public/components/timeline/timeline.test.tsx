@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 import * as React from 'react';
 import { MockedProvider } from 'react-apollo/test-utils';
 
+import '../../mock/ui_settings';
 import { eventsQuery } from '../../containers/events/index.gql_query';
 import { mockBrowserFields } from '../../containers/source/mock';
 import { Direction } from '../../graphql/types';

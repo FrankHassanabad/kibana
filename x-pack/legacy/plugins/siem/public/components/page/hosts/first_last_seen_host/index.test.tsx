@@ -9,6 +9,7 @@ import * as React from 'react';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { render } from 'react-testing-library';
 
+import '../../../../mock/ui_settings';
 import { mockFirstLastSeenHostQuery } from '../../../../containers/hosts/first_last_seen/mock';
 import { wait } from '../../../../lib/helpers';
 import { TestProviders } from '../../../../mock';

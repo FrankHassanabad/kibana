@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 import moment from 'moment-timezone';
 import * as React from 'react';
 
+import '../../mock/ui_settings';
 import { useKibanaUiSetting } from '../../lib/settings/use_kibana_ui_setting';
 
 import { mockFrameworks, TestProviders, MockFrameworks, getMockKibanaUiSetting } from '../../mock';

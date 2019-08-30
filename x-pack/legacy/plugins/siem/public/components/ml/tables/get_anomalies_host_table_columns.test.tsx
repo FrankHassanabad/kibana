@@ -4,6 +4,7 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
+import '../../../mock/ui_settings';
 import { getAnomaliesHostTableColumnsCurated } from './get_anomalies_host_table_columns';
 import { HostsType } from '../../../store/hosts/model';
 import * as i18n from './translations';

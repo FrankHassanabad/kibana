@@ -10,6 +10,7 @@ import * as React from 'react';
 import { shallowWithIntl, mountWithIntl } from 'test_utils/enzyme_helpers';
 
 import { FlowTarget, GetIpOverviewQuery, HostEcsFields } from '../../graphql/types';
+import '../../mock/ui_settings';
 import { TestProviders } from '../../mock';
 import { getEmptyValue } from '../empty_value';
 

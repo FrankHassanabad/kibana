@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 import * as React from 'react';
 import { mountWithIntl } from 'test_utils/enzyme_helpers';
 
+import '../../../../../mock/ui_settings';
 import { TestProviders } from '../../../../../mock';
 import { PrimarySecondaryUserInfo, nilOrUnSet } from './primary_secondary_user_info';
 

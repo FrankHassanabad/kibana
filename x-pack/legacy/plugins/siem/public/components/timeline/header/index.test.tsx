@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 import * as React from 'react';
 
 import { Direction } from '../../../graphql/types';
+import '../../../mock/ui_settings';
 import { mockIndexPattern } from '../../../mock';
 import { TestProviders } from '../../../mock/test_providers';
 import { mockDataProviders } from '../data_providers/mock/mock_data_providers';

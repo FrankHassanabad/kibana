@@ -8,6 +8,7 @@ import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import * as React from 'react';
 
+import '../../../../mock/ui_settings';
 import { ACTIONS_COLUMN_WIDTH } from '../helpers';
 import { defaultHeaders } from './default_headers';
 import { Direction } from '../../../../graphql/types';

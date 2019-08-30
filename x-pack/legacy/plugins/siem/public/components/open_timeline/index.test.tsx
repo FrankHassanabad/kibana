@@ -12,6 +12,7 @@ import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import { wait } from '../../lib/helpers';
+import '../../mock/ui_settings';
 import { TestProviderWithoutDragAndDrop, apolloClient } from '../../mock/test_providers';
 import { mockOpenTimelineQueryResults } from '../../mock/timeline_results';
 import { DEFAULT_SEARCH_RESULTS_PER_PAGE } from '../../pages/timelines/timelines_page';

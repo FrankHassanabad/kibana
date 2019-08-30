@@ -4,12 +4,15 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import { reTryOneTimeOnErrorHandler, errorLinkHandler } from '.';
+import '../../mock/ui_settings';
+
 import { ServerError } from 'apollo-link-http-common';
 import { Operation } from 'apollo-link';
 import { GraphQLError } from 'graphql';
-import * as store from '../../store';
 import { onError } from 'apollo-link-error';
+
+import { reTryOneTimeOnErrorHandler, errorLinkHandler } from '.';
+import * as store from '../../store';
 
 const mockDispatch = jest.fn();
 jest.mock('apollo-link-error');

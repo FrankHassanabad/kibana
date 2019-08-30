@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 import { cloneDeep } from 'lodash';
 import * as React from 'react';
 
+import '../../../../mock/ui_settings';
 import { mockBrowserFields } from '../../../../containers/source/mock';
 import { Ecs } from '../../../../graphql/types';
 import { mockTimelineData } from '../../../../mock';

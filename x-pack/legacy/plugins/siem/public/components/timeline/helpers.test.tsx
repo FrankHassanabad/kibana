@@ -6,6 +6,7 @@
 
 import { cloneDeep } from 'lodash/fp';
 
+import '../../mock/ui_settings';
 import { mockIndexPattern } from '../../mock';
 
 import { mockDataProviders } from './data_providers/mock/mock_data_providers';

@@ -11,6 +11,7 @@ import 'jest-styled-components';
 import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 
+import '../../../mock/ui_settings';
 import { DEFAULT_SEARCH_RESULTS_PER_PAGE } from '../../../pages/timelines/timelines_page';
 import { mockTimelineResults } from '../../../mock/timeline_results';
 import { TimelinesTable } from '.';

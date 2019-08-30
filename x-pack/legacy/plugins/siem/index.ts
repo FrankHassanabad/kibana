@@ -11,7 +11,14 @@ import { Server } from 'hapi';
 import { initServerWithKibana } from './server/kibana.index';
 import { savedObjectMappings } from './server/saved_objects';
 
-import { APP_ID, APP_NAME, DEFAULT_INDEX_KEY, DEFAULT_ANOMALY_SCORE } from './common/constants';
+import {
+  APP_ID,
+  APP_NAME,
+  DEFAULT_INDEX_KEY,
+  DEFAULT_ANOMALY_SCORE,
+  DEFAULT_TIME_RANGE,
+  DEFAULT_REFRESH_INTERVAL,
+} from './common/constants';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function siem(kibana: any) {
@@ -45,6 +52,37 @@ export function siem(kibana: any) {
         },
       ],
       uiSettingDefaults: {
+        [DEFAULT_REFRESH_INTERVAL]: {
+          type: 'json',
+          name: i18n.translate('xpack.siem.uiSettings.refreshIntervalDefaultsText', {
+            defaultMessage: 'Time picker refresh interval',
+          }),
+          value: `{
+  "pause": false,
+  "value": 0
+}`,
+          description: i18n.translate('xpack.siem.uiSettings.defaultIndexDescription', {
+            defaultMessage: "The SIEM timefilter's default refresh interval",
+          }),
+          category: ['siem'],
+          requiresPageReload: true,
+        },
+        [DEFAULT_TIME_RANGE]: {
+          type: 'json',
+          name: i18n.translate('xpack.siem.uiSettings.defaultTimeRange', {
+            defaultMessage: 'Time picker defaults',
+          }),
+          value: `{
+  "from": "now-24h",
+  "to": "now"
+}`,
+          description: i18n.translate('xpack.siem.uiSettings.defaultIndexDescription', {
+            defaultMessage:
+              'The SIEM timefilter selection to use when Kibana is started without one',
+          }),
+          category: ['siem'],
+          requiresPageReload: true,
+        },
         [DEFAULT_INDEX_KEY]: {
           name: i18n.translate('xpack.siem.uiSettings.defaultIndexLabel', {
             defaultMessage: 'Default index',

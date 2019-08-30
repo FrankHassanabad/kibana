@@ -11,6 +11,7 @@ import { get } from 'lodash/fp';
 import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 
+import '../../../../mock/ui_settings';
 import { mockTimelineData, TestProviders } from '../../../../mock';
 import { getEmptyValue } from '../../../empty_value';
 import { FormattedFieldValue } from './formatted_field';

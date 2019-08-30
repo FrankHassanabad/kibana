@@ -9,12 +9,12 @@ import * as React from 'react';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { render } from 'react-testing-library';
 
+import '../../mock/ui_settings';
 import { getEmptyValue } from '../empty_value';
 import { LastEventIndexKey } from '../../graphql/types';
 import { mockLastEventTimeQuery } from '../../containers/events/last_event_time/mock';
 import { wait } from '../../lib/helpers';
 import { TestProviders } from '../../mock';
-import '../../mock/ui_settings';
 
 import { LastEventTime } from '.';
 

@@ -7,6 +7,7 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
 
+import '../../../../mock/ui_settings';
 import { apolloClientObservable, mockGlobalState, TestProviders } from '../../../../mock';
 import { createStore, State } from '../../../../store';
 

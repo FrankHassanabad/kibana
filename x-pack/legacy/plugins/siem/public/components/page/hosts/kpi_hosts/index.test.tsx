@@ -4,10 +4,12 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import { mockKpiHostsData, mockKpiHostDetailsData } from './mock';
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import toJson from 'enzyme-to-json';
+
+import '../../../../mock/ui_settings';
+import { mockKpiHostsData, mockKpiHostDetailsData } from './mock';
 import { KpiHostsComponent } from '.';
 import * as statItems from '../../../stat_items';
 import { kpiHostsMapping } from './kpi_hosts_mapping';

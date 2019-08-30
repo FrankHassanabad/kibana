@@ -10,6 +10,7 @@ import { mountWithIntl } from 'test_utils/enzyme_helpers';
 import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 
+import '../../../mock/ui_settings';
 import { DEFAULT_SEARCH_RESULTS_PER_PAGE } from '../../../pages/timelines/timelines_page';
 import { getEmptyValue } from '../../empty_value';
 import { mockTimelineResults } from '../../../mock/timeline_results';

@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 import { getOr } from 'lodash/fp';
 import * as React from 'react';
 
+import '../../../../mock/ui_settings';
 import { TestProviders } from '../../../../mock';
 import { hostsModel } from '../../../../store';
 import { getEmptyValue } from '../../../empty_value';

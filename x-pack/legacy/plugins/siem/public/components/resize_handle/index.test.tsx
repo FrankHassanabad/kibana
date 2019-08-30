@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 import 'jest-styled-components';
 import * as React from 'react';
 
+import '../../mock/ui_settings';
 import { TestProviders } from '../../mock/test_providers';
 
 import {

@@ -10,6 +10,7 @@ import * as React from 'react';
 
 import { mockBrowserFields } from '../../../containers/source/mock';
 import { Direction } from '../../../graphql/types';
+import '../../../mock/ui_settings';
 import { defaultHeaders, mockTimelineData } from '../../../mock';
 import { TestProviders } from '../../../mock/test_providers';
 

@@ -8,6 +8,7 @@ import { mount } from 'enzyme';
 import { difference } from 'lodash/fp';
 import * as React from 'react';
 
+import '../../mock/ui_settings';
 import { HookWrapper } from '../../mock/hook_wrapper';
 
 import { CONSTANTS } from './constants';

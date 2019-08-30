@@ -7,8 +7,9 @@
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import * as React from 'react';
-import { TestProviders } from '../../../../mock';
 
+import '../../../../mock/ui_settings';
+import { TestProviders } from '../../../../mock';
 import { HostOverview } from './index';
 import { mockData } from './mock';
 import { mockAnomalies } from '../../../ml/mock';

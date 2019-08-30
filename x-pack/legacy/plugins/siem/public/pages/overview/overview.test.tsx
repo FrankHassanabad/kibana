@@ -7,9 +7,8 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
 
-import { Overview } from './index';
-
 import '../../mock/ui_settings';
+import { Overview } from './index';
 import { mocksSource } from '../../containers/source/mock';
 import { TestProviders } from '../../mock';
 import { MockedProvider } from 'react-apollo/test-utils';

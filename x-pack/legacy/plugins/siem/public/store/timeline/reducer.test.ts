@@ -6,6 +6,7 @@
 
 import { cloneDeep, set } from 'lodash/fp';
 
+import '../../mock/ui_settings';
 import { ColumnHeader } from '../../components/timeline/body/column_headers/column_header';
 import {
   IS_OPERATOR,

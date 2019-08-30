@@ -7,6 +7,7 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 
+import '../../../mock/ui_settings';
 import { TabNavigation } from './';
 import { TabNavigationProps } from '../type';
 import { navTabs, SiemPageName } from '../../../pages/home/home_navigations';

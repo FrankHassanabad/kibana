@@ -7,6 +7,7 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
 
+import '../../mock/ui_settings';
 import { mockBrowserFields } from '../../containers/source/mock';
 import { TestProviders } from '../../mock';
 import { IS_OPERATOR, EXISTS_OPERATOR } from '../timeline/data_providers/data_provider';

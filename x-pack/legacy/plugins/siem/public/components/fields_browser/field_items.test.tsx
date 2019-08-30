@@ -8,6 +8,7 @@ import { omit } from 'lodash/fp';
 import { mount } from 'enzyme';
 import * as React from 'react';
 
+import '../../mock/ui_settings';
 import { mockBrowserFields } from '../../containers/source/mock';
 import { TestProviders } from '../../mock';
 import { ColumnHeader } from '../timeline/body/column_headers/column_header';

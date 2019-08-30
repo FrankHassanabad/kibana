@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 import * as React from 'react';
 import { MockedProvider } from 'react-apollo/test-utils';
 
+import '../../mock/ui_settings';
 import { mockBrowserFields, mocksSource } from '../../containers/source/mock';
 import { TestProviders } from '../../mock';
 import { mockDataProviders } from '../timeline/data_providers/mock/mock_data_providers';

@@ -8,6 +8,7 @@ import { mount } from 'enzyme';
 import * as React from 'react';
 
 import { mockBrowserFields } from '../../containers/source/mock';
+import '../../mock/ui_settings';
 import { TestProviders } from '../../mock';
 
 import { FieldsBrowser } from './field_browser';

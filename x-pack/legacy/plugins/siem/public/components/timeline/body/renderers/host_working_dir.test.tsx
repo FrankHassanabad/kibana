@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 
 import * as React from 'react';
 
+import '../../../../mock/ui_settings';
 import { mockTimelineData, TestProviders } from '../../../../mock';
 import { HostWorkingDir } from './host_working_dir';
 

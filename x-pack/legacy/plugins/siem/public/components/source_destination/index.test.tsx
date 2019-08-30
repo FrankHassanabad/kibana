@@ -10,6 +10,7 @@ import toJson from 'enzyme-to-json';
 import { get } from 'lodash/fp';
 import * as React from 'react';
 
+import '../../mock/ui_settings';
 import { asArrayIfExists } from '../../lib/helpers';
 import { getMockNetflowData } from '../../mock';
 import { TestProviders } from '../../mock/test_providers';

@@ -7,6 +7,7 @@
 import { cloneDeep } from 'lodash/fp';
 
 import { TimelineNonEcsData } from '../../../../graphql/types';
+import '../../../../mock/ui_settings';
 import { mockTimelineData } from '../../../../mock';
 import { deleteItemIdx, findItem, getValues } from './helpers';
 

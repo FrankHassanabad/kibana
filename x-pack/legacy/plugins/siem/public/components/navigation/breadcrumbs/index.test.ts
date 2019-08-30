@@ -4,7 +4,8 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 import chrome from 'ui/chrome';
-import '../../../mock/match_media';
+
+import { mockUiSettings } from '../../../mock/ui_settings';
 import { encodeIpv6 } from '../../../lib/helpers';
 import { getBreadcrumbs as getHostDetailsBreadcrumbs } from '../../../pages/hosts/host_details';
 import { getBreadcrumbs as getIPDetailsBreadcrumbs } from '../../../pages/network/ip_details';
@@ -22,7 +23,9 @@ jest.mock('ui/chrome', () => ({
     set: jest.fn(),
   },
   getUiSettingsClient: () => ({
-    get: jest.fn(),
+    get: (key: string) => {
+      return mockUiSettings(key);
+    },
   }),
 }));
 

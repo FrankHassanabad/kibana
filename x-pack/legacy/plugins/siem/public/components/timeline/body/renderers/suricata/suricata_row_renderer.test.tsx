@@ -9,9 +9,10 @@ import toJson from 'enzyme-to-json';
 import { cloneDeep } from 'lodash/fp';
 import * as React from 'react';
 
+import '../../../../../mock/ui_settings';
+import { mockTimelineData } from '../../../../../mock';
 import { mockBrowserFields } from '../../../../../containers/source/mock';
 import { Ecs } from '../../../../../graphql/types';
-import { mockTimelineData } from '../../../../../mock';
 import { TestProviders } from '../../../../../mock/test_providers';
 import { suricataRowRenderer } from './suricata_row_renderer';
 

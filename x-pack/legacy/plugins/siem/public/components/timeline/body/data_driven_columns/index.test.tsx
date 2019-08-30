@@ -8,6 +8,7 @@ import toJson from 'enzyme-to-json';
 
 import * as React from 'react';
 
+import '../../../../mock/ui_settings';
 import { mockTimelineData, TestProviders } from '../../../../mock';
 import { defaultHeaders } from '../column_headers/default_headers';
 import { columnRenderers } from '../renderers';

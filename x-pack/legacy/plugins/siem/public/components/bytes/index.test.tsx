@@ -7,6 +7,7 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
 
+import '../../mock/ui_settings';
 import { TestProviders } from '../../mock';
 import { PreferenceFormattedBytes } from '../formatted_bytes';
 

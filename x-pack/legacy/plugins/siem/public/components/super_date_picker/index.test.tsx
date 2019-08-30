@@ -8,6 +8,7 @@ import { mount } from 'enzyme';
 import * as React from 'react';
 import { Provider as ReduxStoreProvider } from 'react-redux';
 
+import '../../mock/ui_settings';
 import { apolloClientObservable, mockGlobalState } from '../../mock';
 import { createStore, State } from '../../store';
 

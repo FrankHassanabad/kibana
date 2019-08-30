@@ -6,6 +6,8 @@
 
 import { mount } from 'enzyme';
 import * as React from 'react';
+
+import '../../mock/ui_settings';
 import { MlPopover } from './ml_popover';
 
 // Suppress warnings about "act" until async/await syntax is supported: https://github.com/facebook/react/issues/14769

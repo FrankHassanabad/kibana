@@ -4,11 +4,14 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
+import '../../mock/ui_settings';
+
 import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
-import { errorLink, reTryOneTimeOnErrorLink } from '../../containers/errors';
-import { getLinks } from './helpers';
 import { withClientState } from 'apollo-link-state';
 import * as apolloLinkHttp from 'apollo-link-http';
+
+import { errorLink, reTryOneTimeOnErrorLink } from '../../containers/errors';
+import { getLinks } from './helpers';
 import introspectionQueryResultData from '../../graphql/introspection.json';
 
 jest.mock('apollo-cache-inmemory');

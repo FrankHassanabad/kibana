@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 import * as React from 'react';
 
 import { escapeQueryValue } from '../../../lib/keury';
+import '../../../mock/ui_settings';
 import {
   apolloClientObservable,
   mockGlobalState,

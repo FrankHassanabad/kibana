@@ -8,6 +8,7 @@ import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import * as React from 'react';
 
+import '../../mock/ui_settings';
 import { mockDetailItemData, mockDetailItemDataId } from '../../mock/mock_detail_item';
 import { TestProviders } from '../../mock/test_providers';
 

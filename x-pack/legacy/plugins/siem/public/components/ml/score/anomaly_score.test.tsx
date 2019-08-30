@@ -8,6 +8,8 @@ import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { cloneDeep } from 'lodash/fp';
 import * as React from 'react';
+
+import '../../../mock/ui_settings';
 import { AnomalyScore } from './anomaly_score';
 import { mockAnomalies } from '../mock';
 import { TestProviders } from '../../../mock/test_providers';

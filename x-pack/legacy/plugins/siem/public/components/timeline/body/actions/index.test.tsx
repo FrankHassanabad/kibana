@@ -6,6 +6,7 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
 
+import '../../../../mock/ui_settings';
 import { TestProviders } from '../../../../mock';
 import { ACTIONS_COLUMN_WIDTH } from '../helpers';
 

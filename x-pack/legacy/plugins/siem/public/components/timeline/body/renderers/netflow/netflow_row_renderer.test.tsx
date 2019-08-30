@@ -11,6 +11,7 @@ import * as React from 'react';
 import { BrowserFields } from '../../../../../containers/source';
 import { mockBrowserFields } from '../../../../../containers/source/mock';
 import { Ecs } from '../../../../../graphql/types';
+import '../../../../../mock/ui_settings';
 import { getMockNetflowData, TestProviders } from '../../../../../mock';
 
 import {

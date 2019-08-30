@@ -9,6 +9,7 @@ import toJson from 'enzyme-to-json';
 import * as React from 'react';
 import { mountWithIntl } from 'test_utils/enzyme_helpers';
 
+import '../../../../../mock/ui_settings';
 import { mockBrowserFields } from '../../../../../containers/source/mock';
 import { mockTimelineData, TestProviders } from '../../../../../mock';
 import { ZeekDetails } from './zeek_details';

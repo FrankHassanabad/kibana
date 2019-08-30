@@ -8,6 +8,7 @@ import euiDarkVars from '@elastic/eui/dist/eui_theme_dark.json';
 import { mount, ReactWrapper } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import * as React from 'react';
+import '../../mock/ui_settings';
 import { ThemeProvider } from 'styled-components';
 
 import {

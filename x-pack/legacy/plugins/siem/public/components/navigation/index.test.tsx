@@ -8,6 +8,7 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 
+import '../../mock/ui_settings';
 import { CONSTANTS } from '../url_state/constants';
 import { SiemNavigationComponent } from './';
 import { setBreadcrumbs } from './breadcrumbs';

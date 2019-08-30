@@ -8,6 +8,8 @@ import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { cloneDeep } from 'lodash/fp';
 import * as React from 'react';
+
+import '../../../../../mock/ui_settings';
 import { mountWithIntl } from 'test_utils/enzyme_helpers';
 
 import { Ecs } from '../../../../../graphql/types';

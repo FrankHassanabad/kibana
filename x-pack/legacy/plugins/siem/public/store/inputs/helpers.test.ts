@@ -6,6 +6,7 @@
 
 import { cloneDeep } from 'lodash/fp';
 
+import '../../mock/ui_settings';
 import { mockGlobalState } from '../../mock';
 
 import {

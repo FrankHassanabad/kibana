@@ -7,6 +7,8 @@
 import React from 'react';
 import toJson from 'enzyme-to-json';
 import { shallow, mount } from 'enzyme';
+
+import '../../mock/ui_settings';
 import { EntityDraggable } from './entity_draggable';
 import { TestProviders } from '../../mock/test_providers';
 

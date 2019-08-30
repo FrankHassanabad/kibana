@@ -13,6 +13,7 @@ import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { AutocompleteSuggestion } from 'ui/autocomplete_providers';
 
+import '../../mock/ui_settings';
 import { TestProviders } from '../../mock';
 
 import { AutocompleteField } from '.';

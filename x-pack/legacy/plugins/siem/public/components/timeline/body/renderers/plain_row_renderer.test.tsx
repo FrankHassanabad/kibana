@@ -13,6 +13,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { mockBrowserFields } from '../../../../containers/source/mock';
 import { Ecs } from '../../../../graphql/types';
+import '../../../../mock/ui_settings';
 import { mockTimelineData } from '../../../../mock';
 import { plainRowRenderer } from './plain_row_renderer';
 

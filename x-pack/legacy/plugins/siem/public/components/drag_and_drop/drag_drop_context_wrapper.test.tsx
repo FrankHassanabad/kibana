@@ -7,11 +7,11 @@
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import * as React from 'react';
-import { MockedProvider } from 'react-apollo/test-utils';
 
+import '../../mock/ui_settings';
+import { MockedProvider } from 'react-apollo/test-utils';
 import { mockBrowserFields, mocksSource } from '../../containers/source/mock';
 import { TestProviders } from '../../mock';
-
 import { DragDropContextWrapper } from './drag_drop_context_wrapper';
 
 describe('DragDropContextWrapper', () => {

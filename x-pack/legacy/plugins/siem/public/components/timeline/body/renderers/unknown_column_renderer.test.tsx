@@ -12,6 +12,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import { TimelineNonEcsData } from '../../../../graphql/types';
+import '../../../../mock/ui_settings';
 import { defaultHeaders, mockTimelineData } from '../../../../mock';
 import { getEmptyValue } from '../../../empty_value';
 import { unknownColumnRenderer } from './unknown_column_renderer';

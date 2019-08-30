@@ -5,13 +5,28 @@
  */
 
 import chrome from 'ui/chrome';
+import { DEFAULT_TIME_RANGE, DEFAULT_REFRESH_INTERVAL } from '../../common/constants';
 
 chrome.getUiSettingsClient().get.mockImplementation((key: string) => {
+  return mockUiSettings(key);
+});
+
+export const mockUiSettings = (key: string) => {
   switch (key) {
     case 'timepicker:timeDefaults':
       return { from: 'now-15m', to: 'now', mode: 'quick' };
     case 'timepicker:refreshIntervalDefaults':
       return { pause: false, value: 0 };
+    case DEFAULT_TIME_RANGE:
+      return {
+        from: 'now-24h',
+        to: 'now',
+      };
+    case DEFAULT_REFRESH_INTERVAL:
+      return {
+        pause: false,
+        value: 0,
+      };
     case 'siem:defaultIndex':
       return ['auditbeat-*', 'filebeat-*', 'packetbeat-*', 'winlogbeat-*'];
     case 'dateFormat:tz':
@@ -21,4 +36,4 @@ chrome.getUiSettingsClient().get.mockImplementation((key: string) => {
     default:
       throw new Error(`Unexpected config key: ${key}`);
   }
-});
+};
