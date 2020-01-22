@@ -30,11 +30,10 @@ export const createFindRulesRoute: Hapi.ServerRoute = {
   async handler(request: FindRulesRequest, headers) {
     const { query } = request;
     const alertsClient = isFunction(request.getAlertsClient) ? request.getAlertsClient() : null;
-    const actionsClient = isFunction(request.getActionsClient) ? request.getActionsClient() : null;
     const savedObjectsClient = isFunction(request.getSavedObjectsClient)
       ? request.getSavedObjectsClient()
       : null;
-    if (!alertsClient || !actionsClient || !savedObjectsClient) {
+    if (!alertsClient || !savedObjectsClient) {
       return headers.response().code(404);
     }
 

@@ -37,13 +37,11 @@ export const createCreateRulesBulkRoute = (server: ServerFacade): Hapi.ServerRou
     },
     async handler(request: BulkRulesRequest, headers) {
       const alertsClient = isFunction(request.getAlertsClient) ? request.getAlertsClient() : null;
-      const actionsClient = isFunction(request.getActionsClient)
-        ? request.getActionsClient()
-        : null;
+      const actionsClient = null;
       const savedObjectsClient = isFunction(request.getSavedObjectsClient)
         ? request.getSavedObjectsClient()
         : null;
-      if (!alertsClient || !actionsClient || !savedObjectsClient) {
+      if (!alertsClient || !savedObjectsClient) {
         return headers.response().code(404);
       }
 
@@ -102,7 +100,7 @@ export const createCreateRulesBulkRoute = (server: ServerFacade): Hapi.ServerRou
             }
             const createdRule = await createRules({
               alertsClient,
-              actionsClient,
+              actionsClient: actionsClient!,
               createdAt,
               description,
               enabled,

@@ -33,13 +33,11 @@ export const createUpdateRulesBulkRoute = (server: ServerFacade): Hapi.ServerRou
     },
     async handler(request: BulkUpdateRulesRequest, headers) {
       const alertsClient = isFunction(request.getAlertsClient) ? request.getAlertsClient() : null;
-      const actionsClient = isFunction(request.getActionsClient)
-        ? request.getActionsClient()
-        : null;
+      const actionsClient = null;
       const savedObjectsClient = isFunction(request.getSavedObjectsClient)
         ? request.getSavedObjectsClient()
         : null;
-      if (!alertsClient || !actionsClient || !savedObjectsClient) {
+      if (!alertsClient || !savedObjectsClient) {
         return headers.response().code(404);
       }
 
@@ -77,7 +75,7 @@ export const createUpdateRulesBulkRoute = (server: ServerFacade): Hapi.ServerRou
           try {
             const rule = await updateRules({
               alertsClient,
-              actionsClient,
+              actionsClient: actionsClient!,
               description,
               enabled,
               falsePositives,
