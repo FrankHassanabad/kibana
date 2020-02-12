@@ -11,11 +11,19 @@ import {
   getMockNonEmptyIndex,
 } from '../__mocks__/_mock_server';
 import { createRulesRoute } from './create_rules_route';
-import { importRulesRequest } from '../__mocks__/request_responses';
+import {
+  importRulesRequest,
+  getFindResultWithSingleHit,
+  getResult,
+  updateActionResult,
+  getFindRequest,
+  getFindResult,
+} from '../__mocks__/request_responses';
 import { getSimpleRule } from '../../../../../../../../test/detection_engine_api_integration/security_and_spaces/tests/utils';
 import { DETECTION_ENGINE_RULES_URL } from '../../../../../common/constants';
 
 import { importRulesRoute } from './import_rules_route';
+import { ImportSuccessError } from '../utils';
 
 /**
  * Given an array of rule_id strings this will return a ndjson buffer which is useful
@@ -79,6 +87,11 @@ describe('import_rules_route', () => {
 
   describe('payload', () => {
     test('returns 415 if file extension type is not .ndjson', async () => {
+      alertsClient.find.mockResolvedValue(getFindResultWithSingleHit());
+      alertsClient.get.mockResolvedValue(getResult());
+      actionsClient.update.mockResolvedValue(updateActionResult());
+      alertsClient.update.mockResolvedValue(getResult());
+
       // when not specified, content-type is application/json
       const request: ServerInjectOptions = {
         method: 'POST',
@@ -92,17 +105,45 @@ describe('import_rules_route', () => {
 
   describe('single rule import', () => {
     test('returns 200 if rule imported successfully', async () => {
+      // alertsClient.find.mockResolvedValue(getFindResultWithSingleHit());
+      alertsClient.find.mockResolvedValue(getFindResult());
+      alertsClient.get.mockResolvedValue(getResult());
+      actionsClient.update.mockResolvedValue(updateActionResult());
+      alertsClient.update.mockResolvedValue(getResult());
+
       const request: ServerInjectOptions = {
         method: 'POST',
         url: `${DETECTION_ENGINE_RULES_URL}/_import`,
-        headers: { 'content-type': 'multipart/form-data; boundary=AaB03x' },
-        payload: getSimpleRuleAsNdjson(['rule-1']),
+        headers: {
+          'Content-Type': 'multipart/form-data; boundary=frank_is_awesome',
+        },
+        payload: Buffer.from(
+          `--frank_is_awesome\r\n` +
+            `Content-Disposition: form-data; name="file"; filename="multiple_ruleid_queries.ndjson"\r\n` +
+            `Content-Type: application/octet-stream]\r\n` +
+            `\r\n` +
+            `${JSON.stringify({
+              name: 'Changes only the name to this new value',
+              description: 'Query with a rule_id that acts like an external id',
+              rule_id: 'some-rule-id-for-you',
+              risk_score: 1,
+              severity: 'high',
+              type: 'query',
+              query: 'user.name: root or user.name: admin',
+            })}\r\n` +
+            `--frank_is_awesome--\r\n`
+        ),
       };
-      const { statusCode } = await server.inject(request);
-      expect(statusCode).toBe(200);
+      const { payload } = await server.inject(request);
+      const parsed: ImportSuccessError = JSON.parse(payload);
+      expect(parsed).toEqual({
+        errors: [],
+        success: true,
+        success_count: 1,
+      });
     });
 
-    describe('rule with existing rule_id', () => {
+    describe.skip('rule with existing rule_id', () => {
       test('returns 200 with reported conflict if `overwrite` is set to `false`', async () => {
         const request1: ServerInjectOptions = {
           method: 'POST',
@@ -142,7 +183,7 @@ describe('import_rules_route', () => {
     });
   });
 
-  describe('multi rule import', () => {
+  describe.skip('multi rule import', () => {
     test('returns 200 if all rules imported successfully', async () => {});
 
     describe('rules with matching rule_id', () => {

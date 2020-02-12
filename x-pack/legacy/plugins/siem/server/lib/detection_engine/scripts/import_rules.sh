@@ -21,6 +21,6 @@ OVERWRITE=${2:-true}
 curl -s -k \
   -H 'kbn-xsrf: 123' \
   -u ${ELASTICSEARCH_USERNAME}:${ELASTICSEARCH_PASSWORD} \
+  -H 'Expect:' \
   -X POST "${KIBANA_URL}${SPACE_URL}/api/detection_engine/rules/_import?overwrite=${OVERWRITE}" \
-  --form file=@${RULES} \
-  | jq .;
+  --form file=@${RULES} --trace-ascii /tmp/trace.txt

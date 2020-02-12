@@ -71,7 +71,6 @@ export const createImportRulesRoute = (server: ServerFacade): Hapi.ServerRoute =
           })
           .code(400);
       }
-
       const objectLimit = server.config().get<number>('savedObjects.maxImportExportSize');
       const readStream = createRulesStreamFromNdJson(request.payload.file, objectLimit);
       const parsedObjects = await createPromiseFromStreams<PromiseFromStreams[]>([readStream]);
