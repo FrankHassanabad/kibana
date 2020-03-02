@@ -25,6 +25,7 @@ export const buildNetworkEventsQuery = ({
         [timestamp]: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },

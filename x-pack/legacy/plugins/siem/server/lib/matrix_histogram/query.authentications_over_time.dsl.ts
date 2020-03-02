@@ -22,6 +22,7 @@ export const buildAuthenticationsOverTimeQuery = ({
         [timestamp]: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },

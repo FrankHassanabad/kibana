@@ -28,6 +28,7 @@ export const buildQuery = ({
         [timestamp]: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },

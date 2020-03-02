@@ -51,6 +51,7 @@ export const buildTlsHandshakeQuery = ({
         [timestamp]: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },

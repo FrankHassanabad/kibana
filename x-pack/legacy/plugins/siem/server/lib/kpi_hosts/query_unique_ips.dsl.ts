@@ -22,6 +22,7 @@ export const buildUniqueIpsQuery = ({
         [timestamp]: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },

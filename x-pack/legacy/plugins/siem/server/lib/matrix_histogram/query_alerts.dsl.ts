@@ -62,6 +62,7 @@ export const buildAlertsHistogramQuery = ({
         [timestamp]: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },

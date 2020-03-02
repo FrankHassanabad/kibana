@@ -33,6 +33,7 @@ export const buildEventsSearchQuery = ({
                   range: {
                     '@timestamp': {
                       gte: from,
+                      format: 'epoch_millis',
                     },
                   },
                 },
@@ -47,6 +48,7 @@ export const buildEventsSearchQuery = ({
                   range: {
                     '@timestamp': {
                       lte: to,
+                      format: 'epoch_millis',
                     },
                   },
                 },

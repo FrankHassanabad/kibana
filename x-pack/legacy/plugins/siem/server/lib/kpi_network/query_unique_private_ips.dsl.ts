@@ -77,6 +77,7 @@ export const buildUniquePrvateIpQuery = ({
         [timestamp]: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },

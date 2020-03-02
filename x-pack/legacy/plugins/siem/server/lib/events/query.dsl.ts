@@ -20,12 +20,24 @@ export const buildQuery = (options: RequestOptionsPaginated) => {
   const getTimerangeFilter = (timerange: TimerangeInput | undefined): TimerangeFilter[] => {
     if (timerange) {
       const { to, from } = timerange;
+      console.log('I AM RETURNING:', [
+        {
+          range: {
+            [options.sourceConfiguration.fields.timestamp]: {
+              gte: from,
+              lte: to,
+              format: 'epoch_millis',
+            },
+          },
+        },
+      ]);
       return [
         {
           range: {
             [options.sourceConfiguration.fields.timestamp]: {
               gte: from,
               lte: to,
+              format: 'epoch_millis',
             },
           },
         },
@@ -34,7 +46,9 @@ export const buildQuery = (options: RequestOptionsPaginated) => {
     return [];
   };
 
+  console.log('creating filter');
   const filter = [...filterClause, ...getTimerangeFilter(options.timerange), { match_all: {} }];
+  console.log('filter is: ', filter);
 
   const getSortField = (sortField: SortField) => {
     if (sortField.sortFieldId) {
@@ -72,29 +86,46 @@ export const buildQuery = (options: RequestOptionsPaginated) => {
 };
 
 export const buildTimelineQuery = (options: RequestOptions) => {
+  console.log('I AM IN BUILD TIMELINE QUERY', JSON.stringify(options, null, 2));
   const { limit, cursor, tiebreaker } = options.pagination;
   const { fields, filterQuery } = options;
   const filterClause = [...createQueryFilterClauses(filterQuery)];
   const defaultIndex = options.defaultIndex;
 
   const getTimerangeFilter = (timerange: TimerangeInput | undefined): TimerangeFilter[] => {
+    console.log('I AM IN getTimerangeFilter', JSON.stringify(timerange, null, 2));
     if (timerange) {
       const { to, from } = timerange;
+      console.log('I AM RETURNING:', [
+        {
+          range: {
+            [options.sourceConfiguration.fields.timestamp]: {
+              gte: from,
+              lte: to,
+              format: 'epoch_millis',
+            },
+          },
+        },
+      ]);
       return [
         {
           range: {
             [options.sourceConfiguration.fields.timestamp]: {
               gte: from,
               lte: to,
+              format: 'epoch_millis',
             },
           },
         },
       ];
     }
+    console.log('RETURNING EMPTY ARRAY');
     return [];
   };
 
+  console.log('creating filter second one');
   const filter = [...filterClause, ...getTimerangeFilter(options.timerange), { match_all: {} }];
+  console.log('creating filter second one done', JSON.stringify(filter, null, 2));
 
   const getSortField = (sortField: SortField) => {
     if (sortField.sortFieldId) {

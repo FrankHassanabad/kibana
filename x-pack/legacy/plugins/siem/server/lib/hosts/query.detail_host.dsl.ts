@@ -28,6 +28,7 @@ export const buildHostOverviewQuery = ({
         [timestamp]: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },

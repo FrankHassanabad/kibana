@@ -50,6 +50,7 @@ export function buildEsQuery(
     ignoreFilterIfFieldNotInIndex: false,
   }
 ) {
+  console.log('HERE NEXT TO THE ARRAYS!!!!');
   queries = Array.isArray(queries) ? queries : [queries];
   filters = Array.isArray(filters) ? filters : [filters];
 
@@ -61,16 +62,19 @@ export function buildEsQuery(
     config.allowLeadingWildcards,
     config.dateFormatTZ
   );
+  console.log('kueryQuery is :', kueryQuery);
   const luceneQuery = buildQueryFromLucene(
     queriesByLanguage.lucene,
     config.queryStringOptions,
     config.dateFormatTZ
   );
+  console.log('luceneQuery is :', luceneQuery);
   const filterQuery = buildQueryFromFilters(
     filters,
     indexPattern,
     config.ignoreFilterIfFieldNotInIndex
   );
+  console.log('filterQuery is :', filterQuery);
 
   return {
     bool: {

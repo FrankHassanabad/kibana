@@ -20,6 +20,7 @@ export const buildAnomaliesOverTimeQuery = ({
         timestamp: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },

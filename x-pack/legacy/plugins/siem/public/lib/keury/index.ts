@@ -96,7 +96,9 @@ export const convertToBuildEsQuery = ({
   filters: Filter[];
 }) => {
   try {
-    return JSON.stringify(
+    console.log('The filters are:', filters);
+    console.log('The queries are:', queries);
+    const output = JSON.stringify(
       esQuery.buildEsQuery(
         indexPattern,
         queries,
@@ -104,9 +106,12 @@ export const convertToBuildEsQuery = ({
         {
           ...config,
           dateFormatTZ: undefined,
+          format: '',
         }
       )
     );
+    console.log('The output is:', output);
+    return output;
   } catch (exp) {
     return '';
   }

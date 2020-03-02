@@ -21,6 +21,7 @@ export const buildOverviewNetworkQuery = ({
         [timestamp]: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },
@@ -120,6 +121,7 @@ export const buildOverviewHostQuery = ({
         [timestamp]: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },

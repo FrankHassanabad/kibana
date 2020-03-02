@@ -116,6 +116,7 @@ export const combineQueries = ({
   end: number;
   isEventViewer?: boolean;
 }): { filterQuery: string } | null => {
+  console.log('filters are:', filters, 'start is:', start, 'end is:', end);
   const kuery: Query = { query: '', language: kqlQuery.language };
   if (isEmpty(dataProviders) && isEmpty(kqlQuery.query) && isEmpty(filters) && !isEventViewer) {
     return null;

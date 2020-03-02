@@ -33,6 +33,7 @@ export const buildAuthQuery = ({
         [timestamp]: {
           gte: from,
           lte: to,
+          format: 'epoch_millis',
         },
       },
     },

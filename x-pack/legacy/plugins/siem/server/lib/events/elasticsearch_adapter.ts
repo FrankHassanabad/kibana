@@ -58,6 +58,7 @@ export class ElasticsearchEventsAdapter implements EventsAdapter {
     ]);
     delete queryOptions.fieldRequested;
     const dsl = buildTimelineQuery(queryOptions);
+    console.log('DSL FOR TIMELINE:', JSON.stringify(dsl, null, 2));
     const response = await this.framework.callWithRequest<EventHit, TermAggregation>(
       request,
       'search',

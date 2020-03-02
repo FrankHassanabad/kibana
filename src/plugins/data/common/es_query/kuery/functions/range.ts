@@ -27,6 +27,7 @@ import { getFullFieldNameNode } from './utils/get_full_field_name_node';
 import { IIndexPattern, KueryNode, IFieldType } from '../../..';
 
 export function buildNodeParams(fieldName: string, params: RangeFilterParams) {
+  console.log('----> RANGE YOUR PARAMS ARE:', params);
   const paramsToMap = _.pick(params, 'gt', 'lt', 'gte', 'lte', 'format');
   const fieldNameArg =
     typeof fieldName === 'string'
@@ -48,6 +49,7 @@ export function toElasticsearchQuery(
   config: Record<string, any> = {},
   context: Record<string, any> = {}
 ) {
+  console.log('----> TO ELASTIC SEARCH QUERY:', config);
   const [fieldNameArg, ...args] = node.arguments;
   const fullFieldNameArg = getFullFieldNameNode(
     fieldNameArg,
@@ -99,6 +101,7 @@ export function toElasticsearchQuery(
         script: getRangeScript(field, queryParams),
       };
     } else if (field.type === 'date') {
+      console.log('----> I AM A DATE FIELD TYPE EVERYONE!!!:');
       const timeZoneParam = config.dateFormatTZ
         ? { time_zone: getTimeZoneFromSettings(config!.dateFormatTZ) }
         : {};
@@ -107,6 +110,7 @@ export function toElasticsearchQuery(
           [field.name]: {
             ...queryParams,
             ...timeZoneParam,
+            format: 'epoch_millis',
           },
         },
       });
