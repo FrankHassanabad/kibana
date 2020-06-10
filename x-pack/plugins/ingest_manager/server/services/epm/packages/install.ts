@@ -90,9 +90,12 @@ export async function installPackage(options: {
   callCluster: CallESAsCurrentUser;
 }): Promise<AssetReference[]> {
   const { savedObjectsClient, pkgkey, callCluster } = options;
+  console.log('I am here in installPackage with pkgkey:', pkgkey);
   // TODO: change epm API to /packageName/version so we don't need to do this
   const [pkgName, pkgVersion] = pkgkey.split('-');
   const paths = await Registry.getArchiveInfo(pkgName, pkgVersion);
+  console.log('I am here in installPackage with pkgName, pkgVersion:', pkgName, pkgVersion);
+  console.log('I am here in installPackage with paths:', paths);
   // see if some version of this package is already installed
   // TODO: calls to getInstallationObject, Registry.fetchInfo, and Registry.fetchFindLatestPackge
   // and be replaced by getPackageInfo after adjusting for it to not group/use archive assets
@@ -109,6 +112,7 @@ export async function installPackage(options: {
   // delete the previous version's installation's SO kibana assets before installing new ones
   // in case some assets were removed in the new version
   if (installedPkg) {
+    console.log('Detected it was already installed, deleting assets installedPkg:', installedPkg);
     try {
       await deleteKibanaSavedObjectsAssets(savedObjectsClient, installedPkg.attributes.installed);
     } catch (err) {
@@ -116,6 +120,7 @@ export async function installPackage(options: {
     }
   }
 
+  console.log('Installing Kibana assets is starting');
   const [installedKibanaAssets, installedPipelines] = await Promise.all([
     installKibanaAssets({
       savedObjectsClient,
@@ -134,6 +139,7 @@ export async function installPackage(options: {
   ]);
 
   // install or update the templates
+  console.log('Installing or updated templates');
   const installedTemplates = await installTemplates(
     registryPackageInfo,
     callCluster,
@@ -172,6 +178,17 @@ export async function installPackage(options: {
     ...installedPipelines,
     ...installedTemplateRefs,
   ];
+
+  console.log('Installing security solutions rules');
+  const [installedSecuritySolutionAssets] = await Promise.all([
+    installSecuritySolutionAssets({
+      savedObjectsClient,
+      pkgName,
+      pkgVersion,
+      paths,
+    }),
+  ]);
+
   // Save references to installed assets in the package's saved object state
   return saveInstallationReferences({
     savedObjectsClient,
@@ -193,6 +210,7 @@ export async function installKibanaAssets(options: {
   paths: string[];
 }) {
   const { savedObjectsClient, paths } = options;
+  console.log('I am in the installKibanaAssets paths:', paths);
 
   // Only install Kibana assets during package installation.
   const kibanaAssetTypes = Object.values(KibanaAssetType);
@@ -203,6 +221,15 @@ export async function installKibanaAssets(options: {
   // installKibanaSavedObjects returns AssetReference[], so .map creates AssetReference[][]
   // call .flat to flatten into one dimensional array
   return Promise.all(installationPromises).then((results) => results.flat());
+}
+
+export async function installSecuritySolutionAssets(options: {
+  savedObjectsClient: SavedObjectsClientContract;
+  pkgName: string;
+  pkgVersion: string;
+  paths: string[];
+}) {
+  console.log('I am here in the installSecuritySolutionAssets');
 }
 
 export async function saveInstallationReferences(options: {

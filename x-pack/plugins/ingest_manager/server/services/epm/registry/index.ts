@@ -97,6 +97,9 @@ export function pathParts(path: string): AssetParts {
 
   let [pkgkey, service, type, file] = path.split('/');
 
+  console.log(`"original path is: ${path}"`);
+  console.log(`"pkgkey: ${pkgkey}", "service: ${service}", "type: ${type}", "file: ${file}"`);
+
   // if it's a dataset
   if (service === 'dataset') {
     // save the dataset name
