@@ -6,6 +6,8 @@
 
 import { SavedObject, SavedObjectsClientContract } from 'src/core/server';
 import Boom from 'boom';
+import { getExistingPrepackagedRules } from '../../../../../security_solution/server/lib/detection_engine/rules/get_existing_prepackaged_rules';
+import { AlertsClient } from '../../../../../alerts/server';
 import { PACKAGES_SAVED_OBJECT_TYPE } from '../../../constants';
 import {
   AssetReference,
@@ -86,10 +88,12 @@ export async function ensureInstalledPackage(options: {
 
 export async function installPackage(options: {
   savedObjectsClient: SavedObjectsClientContract;
+  alertsClient: AlertsClient | undefined;
   pkgkey: string;
   callCluster: CallESAsCurrentUser;
 }): Promise<AssetReference[]> {
-  const { savedObjectsClient, pkgkey, callCluster } = options;
+  const { savedObjectsClient, pkgkey, callCluster, alertsClient } = options;
+  console.log('Is alertsClient null?', alertsClient == null);
   console.log('I am here in installPackage with pkgkey:', pkgkey);
   // TODO: change epm API to /packageName/version so we don't need to do this
   const [pkgName, pkgVersion] = pkgkey.split('-');
@@ -182,6 +186,7 @@ export async function installPackage(options: {
   console.log('Installing security solutions rules');
   const [installedSecuritySolutionAssets] = await Promise.all([
     installSecuritySolutionAssets({
+      alertsClient,
       savedObjectsClient,
       pkgName,
       pkgVersion,
@@ -225,11 +230,23 @@ export async function installKibanaAssets(options: {
 
 export async function installSecuritySolutionAssets(options: {
   savedObjectsClient: SavedObjectsClientContract;
+  alertsClient: AlertsClient | undefined;
   pkgName: string;
   pkgVersion: string;
   paths: string[];
 }) {
+  const { alertsClient } = options;
   console.log('I am here in the installSecuritySolutionAssets');
+  if (alertsClient == null) {
+    console.log('alertsClient is undefined or null, returning early');
+  } else {
+    console.log('alertsClient exists, I am going to call into it and begin working');
+    const prepackagedRules = await getExistingPrepackagedRules({ alertsClient });
+    console.log(
+      'I found these prepackagedRules here for you',
+      JSON.stringify(prepackagedRules, null, 2)
+    );
+  }
 }
 
 export async function saveInstallationReferences(options: {

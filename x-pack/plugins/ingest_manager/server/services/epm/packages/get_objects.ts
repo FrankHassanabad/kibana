@@ -5,6 +5,10 @@
  */
 
 import { SavedObject, SavedObjectsBulkCreateObject } from 'src/core/server';
+import { createPromiseFromStreams } from 'src/legacy/utils';
+// eslint-disable-next-line @kbn/eslint/no-restricted-paths
+import { AddPrepackagedRulesSchemaDecoded } from '../../../../../security_solution/common/detection_engine/schemas/request/add_prepackaged_rules_schema';
+import { createRulesStreamFromNdJson } from '../../../../../security_solution/server/lib/detection_engine/rules/create_rules_stream_from_ndjson';
 import { AssetType } from '../../../types';
 import * as Registry from '../registry';
 
@@ -29,4 +33,20 @@ export async function getObject(key: string) {
   };
 
   return savedObject;
+}
+
+export async function getRulesFromStream(key: string) {
+  const buffer = Registry.getAsset(key);
+  const ndjson = buffer.toString('utf8');
+  /*
+  const readStream = createRulesStreamFromNdJson(Number.MAX_VALUE);
+  const parsedObjects = await createPromiseFromStreams<AddPrepackagedRulesSchemaDecoded[]>([
+    ndjson,
+    ...readStream,
+  ]);
+  */
+  // cache values are buffers. convert to string / JSON
+  console.log('RAW DATA IS:', ndjson);
+
+  // return savedObject;
 }
