@@ -125,9 +125,9 @@ export const installPackageHandler: RequestHandler<TypeOf<
     const { pkgkey } = request.params;
     const savedObjectsClient = context.core.savedObjects.client;
     const callCluster = context.core.elasticsearch.legacy.client.callAsCurrentUser;
-
     const alertsClient = context.alerting?.getAlertsClient();
-
+    const securitySolutionsClient = context.securitySolution?.getAppClient();
+    console.log('----> Is securitySolutionsClient null <-----', securitySolutionsClient);
     const res = await installPackage({
       savedObjectsClient,
       alertsClient,

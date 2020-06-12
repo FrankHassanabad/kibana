@@ -54,6 +54,7 @@ export {
   IndexTemplateMappings,
   Settings,
   SettingsSOAttributes,
+  SecurityAssetType,
 } from '../../common';
 
 export type CallESAsCurrentUser = ScopedClusterClient['callAsCurrentUser'];

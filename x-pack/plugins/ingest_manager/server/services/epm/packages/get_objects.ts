@@ -35,9 +35,14 @@ export async function getObject(key: string) {
   return savedObject;
 }
 
-export async function getRulesFromStream(key: string) {
+export async function getRules(key: string) {
+  console.log('I am here in getRules with key', key);
   const buffer = Registry.getAsset(key);
+
   const ndjson = buffer.toString('utf8');
+  const values = ndjson.split(/\n|\n\r/).filter(Boolean);
+  // TODO: Validate each row item from the json string
+  const jsonObjects = values.map((value) => JSON.parse(value));
   /*
   const readStream = createRulesStreamFromNdJson(Number.MAX_VALUE);
   const parsedObjects = await createPromiseFromStreams<AddPrepackagedRulesSchemaDecoded[]>([
@@ -46,7 +51,6 @@ export async function getRulesFromStream(key: string) {
   ]);
   */
   // cache values are buffers. convert to string / JSON
-  console.log('RAW DATA IS:', ndjson);
-
-  // return savedObject;
+  console.log('RAW DATA LENGTH IS:', jsonObjects.length);
+  return jsonObjects;
 }

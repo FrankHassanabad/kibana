@@ -6,6 +6,8 @@
 
 import { SavedObject, SavedObjectsClientContract } from 'src/core/server';
 import Boom from 'boom';
+import { installPrepackagedRules } from '../../../../../security_solution/server/lib/detection_engine/rules/install_prepacked_rules';
+import { getPrepackagedRules } from '../../../../../security_solution/server/lib/detection_engine/rules/get_prepackaged_rules';
 import { getExistingPrepackagedRules } from '../../../../../security_solution/server/lib/detection_engine/rules/get_existing_prepackaged_rules';
 import { AlertsClient } from '../../../../../alerts/server';
 import { PACKAGES_SAVED_OBJECT_TYPE } from '../../../constants';
@@ -13,6 +15,7 @@ import {
   AssetReference,
   Installation,
   KibanaAssetType,
+  SecurityAssetType,
   CallESAsCurrentUser,
   DefaultPackages,
   ElasticsearchAssetType,
@@ -20,7 +23,7 @@ import {
 } from '../../../types';
 import { installIndexPatterns } from '../kibana/index_pattern/install';
 import * as Registry from '../registry';
-import { getObject } from './get_objects';
+import { getObject, getRules } from './get_objects';
 import { getInstallation, getInstallationObject } from './index';
 import { installTemplates } from '../elasticsearch/template/install';
 import { generateESIndexPatterns } from '../elasticsearch/template/template';
@@ -28,6 +31,8 @@ import { installPipelines } from '../elasticsearch/ingest_pipeline/install';
 import { installILMPolicy } from '../elasticsearch/ilm/install';
 import { deleteAssetsByType, deleteKibanaSavedObjectsAssets } from './remove';
 import { updateCurrentWriteIndices } from '../elasticsearch/template/template';
+import { getRulesToInstall } from '../../../../../security_solution/server/lib/detection_engine/rules/get_rules_to_install';
+import { getRulesToUpdate } from '../../../../../security_solution/server/lib/detection_engine/rules/get_rules_to_update';
 
 export async function installLatestPackage(options: {
   savedObjectsClient: SavedObjectsClientContract;
@@ -235,17 +240,28 @@ export async function installSecuritySolutionAssets(options: {
   pkgVersion: string;
   paths: string[];
 }) {
-  const { alertsClient } = options;
+  const { alertsClient, pkgName, pkgVersion, paths } = options;
   console.log('I am here in the installSecuritySolutionAssets');
   if (alertsClient == null) {
     console.log('alertsClient is undefined or null, returning early');
   } else {
+    // Only install Security assets during package installation.
+    console.log('alertsClient is not null getting Object.values');
+    const securityAssetTypes = Object.values(SecurityAssetType);
+    console.log('I have securityAssetTypes now and am doing a map');
+    const installationPromises = securityAssetTypes.map(async (assetType) => {
+      console.log('I am here within the map about to installSecurityRules');
+      installSecurityRules({ alertsClient, assetType, paths });
+      console.log('I am done within the map and am done installingSecurityRules');
+      const prepackagedRules = await getExistingPrepackagedRules({ alertsClient });
+    });
+
+    // installKibanaSavedObjects returns AssetReference[], so .map creates AssetReference[][]
+    // call .flat to flatten into one dimensional array
+    return Promise.all(installationPromises).then((results) => results.flat());
+
     console.log('alertsClient exists, I am going to call into it and begin working');
-    const prepackagedRules = await getExistingPrepackagedRules({ alertsClient });
-    console.log(
-      'I found these prepackagedRules here for you',
-      JSON.stringify(prepackagedRules, null, 2)
-    );
+    console.log('I found these prepackagedRules here for you', prepackagedRules.length);
   }
 }
 
@@ -313,4 +329,67 @@ function toAssetReference({ id, type }: SavedObject) {
   const reference: AssetReference = { id, type: type as KibanaAssetType };
 
   return reference;
+}
+
+async function installSecurityRules({
+  alertsClient,
+  assetType,
+  paths,
+}: {
+  alertsClient: AlertsClient;
+  assetType: SecurityAssetType;
+  paths: string[];
+}) {
+  console.log('I am in installSecurityRules with paths:', paths, 'and assetType:', assetType);
+  const isSameType = (path: string) => {
+    console.log(
+      'path is:',
+      path,
+      'assetType is:',
+      assetType,
+      'Registry.pathParts(path).type:',
+      Registry.pathParts(path).type
+    );
+    return assetType === Registry.pathParts(path).type;
+  };
+  console.log('isSameType:', isSameType);
+  const pathsOfType = paths.filter((path) => isSameType(path));
+  console.log('pathsOfType:', pathsOfType);
+  const ndjsonRulePaths = await Promise.all(pathsOfType.map(getRules));
+  console.log('I have this ndjsonRules:', ndjsonRulePaths.length);
+  ndjsonRulePaths.map(async (ndjsonRules) => {
+    try {
+      console.log('I have these ndjsonRules:', ndjsonRules.length);
+      const rulesFromFileSystem = getPrepackagedRules(ndjsonRules);
+      console.log('I have these rulesFromFileSystem:', rulesFromFileSystem.length);
+      const prepackagedRules = await getExistingPrepackagedRules({ alertsClient });
+      console.log('I have prepackagedRules:', prepackagedRules.length);
+      const rulesToInstall = getRulesToInstall(rulesFromFileSystem, prepackagedRules);
+      console.log('I have rulesToInstall:', rulesToInstall.length);
+      const rulesToUpdate = getRulesToUpdate(rulesFromFileSystem, prepackagedRules);
+      console.log('I have rulesToUpdate:', rulesToUpdate.length);
+      const signalsIndex = '.siem-signals-hassanabad-frank-default';
+      console.log('I am installing the rules');
+      await Promise.all(installPrepackagedRules(alertsClient, rulesToInstall, signalsIndex));
+      console.log('I am done installing the rules');
+      console.log('Rules installed:', rulesToInstall.length);
+      console.log('Rules updated:', rulesToUpdate.length);
+    } catch (error) {
+      console.log('Validation error of:', error);
+    }
+  });
+  console.log('Sample zero of it is:', ndjsonRulePaths[0][0]);
+  return;
+  /*
+  if (toBeSavedObjects.length === 0) {
+    return [];
+  } else {
+    const createResults = await savedObjectsClient.bulkCreate(toBeSavedObjects, {
+      overwrite: true,
+    });
+    const createdObjects = createResults.saved_objects;
+    const installed = createdObjects.map(toAssetReference);
+    return installed;
+  }
+  */
 }

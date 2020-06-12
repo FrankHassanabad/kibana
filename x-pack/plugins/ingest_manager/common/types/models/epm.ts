@@ -21,7 +21,11 @@ export enum InstallStatus {
 
 export type DetailViewPanelName = 'overview' | 'data-sources' | 'settings';
 export type ServiceName = 'kibana' | 'elasticsearch';
-export type AssetType = KibanaAssetType | ElasticsearchAssetType | AgentAssetType;
+export type AssetType =
+  | KibanaAssetType
+  | ElasticsearchAssetType
+  | AgentAssetType
+  | SecurityAssetType;
 
 export enum KibanaAssetType {
   dashboard = 'dashboard',
@@ -36,6 +40,10 @@ export enum ElasticsearchAssetType {
   ingestPipeline = 'ingest-pipeline',
   indexTemplate = 'index-template',
   ilmPolicy = 'ilm-policy',
+}
+
+export enum SecurityAssetType {
+  prePackaged = 'pre-packaged',
 }
 
 export enum AgentAssetType {

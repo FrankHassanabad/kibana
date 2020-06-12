@@ -10,8 +10,6 @@ i=0;
 for f in ../rules/prepackaged_rules/*.json ; do
   ((i++));
   echo "converting $f"
-  cat ../rules/prepackaged_rules/windows_msxsl_network.json | tr -d '\n' | tr -d ' ' >> pre_packaged_rules.ndjson
-  echo "" >> pre_packaged_rules.ndjson
+  cat $f | tr -d '\n' | tr -d ' ' >> rules.ndjson
+  echo "" >> rules.ndjson
 done
-echo "{\"exported_count\":$i,\"missing_rules\":[],\"missing_rules_count\":0}" >> pre_packaged_rules.ndjson
-
