@@ -8,8 +8,9 @@
 
 import * as t from 'io-ts';
 
-import { id, meta, value } from '../common/schemas';
+import { description, id, meta, name, value } from '../common/schemas';
 import { Identity, RequiredKeepUndefined } from '../../types';
+import { DefaultOperation, Operation } from '../types/default_operation';
 
 export const updateListItemSchema = t.intersection([
   t.exact(
@@ -20,10 +21,17 @@ export const updateListItemSchema = t.intersection([
   ),
   t.exact(
     t.partial({
+      list_description: description, // defaults to undefined if not set during decode
+      list_name: name, // defaults to undefined if not set during decode
       meta, // defaults to undefined if not set during decode
+      operation: DefaultOperation,
     })
   ),
 ]);
 
 export type UpdateListItemSchemaPartial = Identity<t.TypeOf<typeof updateListItemSchema>>;
 export type UpdateListItemSchema = RequiredKeepUndefined<t.TypeOf<typeof updateListItemSchema>>;
+
+export type UpdateListItemSchemaDecoded = Omit<UpdateListItemSchemaPartial, 'operation'> & {
+  operation: Operation;
+};
