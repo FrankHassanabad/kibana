@@ -15,7 +15,7 @@ describe('Index Fields', () => {
       expect(
         sortBy(
           'name',
-          formatIndexFields(
+          await formatIndexFields(
             [mockAuditbeatIndexField, mockFilebeatIndexField, mockPacketbeatIndexField],
             ['auditbeat', 'filebeat', 'packetbeat']
           )

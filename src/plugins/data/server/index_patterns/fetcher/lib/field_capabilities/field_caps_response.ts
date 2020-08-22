@@ -93,6 +93,8 @@ export interface FieldCapsResponse {
  */
 export function readFieldCapsResponse(fieldCapsResponse: FieldCapsResponse): FieldDescriptor[] {
   const capsByNameThenType = fieldCapsResponse.fields;
+
+  const kibanaFormattedCapsHash: Record<string, FieldDescriptor> = {};
   const kibanaFormattedCaps: FieldDescriptor[] = Object.keys(capsByNameThenType).map(
     (fieldName) => {
       const capsByType = capsByNameThenType[fieldName];
@@ -119,7 +121,7 @@ export function readFieldCapsResponse(fieldCapsResponse: FieldCapsResponse): Fie
       // ignore the conflict and carry on (my wayward son)
       const uniqueKibanaTypes = uniq(types.map(castEsToKbnFieldTypeName));
       if (uniqueKibanaTypes.length > 1) {
-        return {
+        const field = {
           name: fieldName,
           type: 'conflict',
           esTypes: types,
@@ -134,10 +136,12 @@ export function readFieldCapsResponse(fieldCapsResponse: FieldCapsResponse): Fie
             {}
           ),
         };
+        kibanaFormattedCapsHash[fieldName] = field;
+        return field;
       }
 
       const esType = types[0];
-      return {
+      const field = {
         name: fieldName,
         type: castEsToKbnFieldTypeName(esType),
         esTypes: types,
@@ -145,6 +149,8 @@ export function readFieldCapsResponse(fieldCapsResponse: FieldCapsResponse): Fie
         aggregatable: isAggregatable,
         readFromDocValues: shouldReadFieldFromDocValues(isAggregatable, esType),
       };
+      kibanaFormattedCapsHash[fieldName] = field;
+      return field;
     }
   );
 
@@ -162,7 +168,7 @@ export function readFieldCapsResponse(fieldCapsResponse: FieldCapsResponse): Fie
         return parentFieldNameParts.slice(0, index + 1).join('.');
       });
     const parentFieldCaps = parentFieldNames.map((parentFieldName) => {
-      return kibanaFormattedCaps.find((caps) => caps.name === parentFieldName);
+      return kibanaFormattedCapsHash[parentFieldName];
     });
     const parentFieldCapsAscending = parentFieldCaps.reverse();
 

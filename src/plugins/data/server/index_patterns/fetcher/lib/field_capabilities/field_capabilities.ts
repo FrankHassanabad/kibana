@@ -44,12 +44,23 @@ export async function getFieldCapabilities(
   metaFields: string[] = []
 ) {
   const esFieldCaps: FieldCapsResponse = await callFieldCapsApi(callCluster, indices);
+  console.log('indices are:', indices);
+  console.time('field_cap');
   const fieldsFromFieldCapsByName = keyBy(readFieldCapsResponse(esFieldCaps), 'name');
 
+  const hash: Record<string, string> = {};
   const allFieldsUnsorted = Object.keys(fieldsFromFieldCapsByName)
     .filter((name) => !name.startsWith('_'))
     .concat(metaFields)
-    .reduce(concatIfUniq, [] as string[])
+    .reduce<string[]>((arr, value) => {
+      if (hash[value] != null) {
+        return arr;
+      } else {
+        hash[value] = value;
+        arr.push(value);
+        return arr;
+      }
+    }, [])
     .map<FieldDescriptor>((name) =>
       defaults({}, fieldsFromFieldCapsByName[name], {
         name,
@@ -61,5 +72,7 @@ export async function getFieldCapabilities(
     )
     .map(mergeOverrides);
 
-  return sortBy(allFieldsUnsorted, 'name');
+  const sorted = sortBy(allFieldsUnsorted, 'name');
+  console.timeEnd('field_cap');
+  return sorted;
 }

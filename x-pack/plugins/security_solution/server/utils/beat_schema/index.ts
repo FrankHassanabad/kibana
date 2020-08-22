@@ -76,12 +76,14 @@ const convertFieldsToAssociativeArray = (
       }, {})
     : {};
 
+// TODO: Delete this and tests
 export const getIndexAlias = (defaultIndex: string[], indexName: string): string => {
   try {
     const found = defaultIndex.find((index) => `\\${indexName}`.match(`\\${index}`) != null);
     if (found != null) {
       return found;
     } else {
+      console.log('Index not found is:', indexName, 'defaultIndex is:', defaultIndex);
       return 'unknown';
     }
   } catch (error) {
