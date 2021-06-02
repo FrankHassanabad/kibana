@@ -26,6 +26,7 @@ import { StartServices } from '../types';
 import { PageRouter } from './routes';
 import { EuiThemeProvider } from '../../../../../src/plugins/kibana_react/common';
 import { UserPrivilegesProvider } from '../detections/components/user_privileges';
+import { TransformCapabilitiesProvider } from '../transforms/permissions/transform_capabilities_provider';
 
 interface StartAppComponent {
   children: React.ReactNode;
@@ -46,13 +47,15 @@ const StartAppComponent: FC<StartAppComponent> = ({ children, history, onAppLeav
             <ReduxStoreProvider store={store}>
               <EuiThemeProvider darkMode={darkMode}>
                 <MlCapabilitiesProvider>
-                  <UserPrivilegesProvider>
-                    <ManageUserInfo>
-                      <PageRouter history={history} onAppLeave={onAppLeave}>
-                        {children}
-                      </PageRouter>
-                    </ManageUserInfo>
-                  </UserPrivilegesProvider>
+                  <TransformCapabilitiesProvider>
+                    <UserPrivilegesProvider>
+                      <ManageUserInfo>
+                        <PageRouter history={history} onAppLeave={onAppLeave}>
+                          {children}
+                        </PageRouter>
+                      </ManageUserInfo>
+                    </UserPrivilegesProvider>
+                  </TransformCapabilitiesProvider>
                 </MlCapabilitiesProvider>
               </EuiThemeProvider>
               <ErrorToastDispatcher />

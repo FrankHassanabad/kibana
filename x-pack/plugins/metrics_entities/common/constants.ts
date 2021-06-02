@@ -16,6 +16,11 @@ export const METRICS_ENTITIES_URL = '/api/metrics_entities';
 export const METRICS_ENTITIES_TRANSFORMS = `${METRICS_ENTITIES_URL}/transforms`;
 
 /**
+ * Gets the privileges of the user in relation to the transforms
+ */
+export const METRICS_ENTITIES_TRANSFORM_PRIVILEGES = `${METRICS_ENTITIES_URL}/transforms/privileges`;
+
+/**
  * Global prefix for all the transform jobs
  */
 export const ELASTIC_NAME = 'estc';

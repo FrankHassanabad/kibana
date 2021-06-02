@@ -11,7 +11,6 @@ import React, { useEffect, useReducer, Dispatch, createContext, useContext } fro
 import { useAlertsPrivileges } from '../../containers/detection_engine/alerts/use_alerts_privileges';
 import { useSignalIndex } from '../../containers/detection_engine/alerts/use_signal_index';
 import { useKibana } from '../../../common/lib/kibana';
-import { useCreateTransforms } from '../../../transforms/containers/use_create_transforms';
 
 export interface State {
   canUserCRUD: boolean | null;
@@ -205,8 +204,6 @@ export const useUserInfo = (): State => {
     createDeSignalIndex: createSignalIndex,
   } = useSignalIndex();
 
-  const { createTransforms } = useCreateTransforms();
-
   const uiCapabilities = useKibana().services.application.capabilities;
   const capabilitiesCanUserCRUD: boolean = uiCapabilities.siem.crud === true;
 
@@ -297,13 +294,6 @@ export const useUserInfo = (): State => {
       });
     }
   }, [dispatch, loading, signalIndexMappingOutdated, apiSignalIndexMappingOutdated]);
-
-  // TODO: Get the permissions model and if the user has the correct permissions for transforms
-  // then activate the transforms similar to the createSignalIndex.
-  // TODO: This should move out of detections/components and into its own transform area
-  useEffect(() => {
-    createTransforms();
-  }, [createTransforms]);
 
   useEffect(() => {
     if (

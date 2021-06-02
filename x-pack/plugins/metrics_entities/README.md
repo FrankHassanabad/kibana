@@ -320,5 +320,3 @@ left over TODO's in the code base.
  - Add schema validation choosing some schema library (io-ts or Kibana Schema or ... )
  - Add unit tests
  - Add e2e tests
- - Move ui code into this plugin from security_solutions? (maybe?)
-   - UI code could be within `kibana/packages` instead of in here directly and I think we will be better off.
